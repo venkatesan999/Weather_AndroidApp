@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="app_bg">#F5F6F7</color>
+    <color name="forecast_text_color">#2A2A2A</color>
+    <color name="city_name_text_color">#556799</color>
+    <color name="view_color">#F5F6F7</color>
+</resources>
