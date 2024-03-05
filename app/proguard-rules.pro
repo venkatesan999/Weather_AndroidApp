@@ -19,3 +19,6 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep API interfaces and implementations
+-keep class com.example.weatherinfo.weather.app.api.** { *; }

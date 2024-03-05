@@ -9,6 +9,22 @@ android {
     namespace = "com.example.weatherinfo"
     compileSdk = 34
 
+    signingConfigs {
+        create(KeyStore.dev) {
+            keyPassword = "weather"
+            storeFile = file("D:\\Weather_KeyStore\\debug.keystore.jks")
+            storePassword = "weather"
+            keyAlias = "weather_keystore"
+        }
+
+        create(KeyStore.release) {
+            keyAlias = "weather_keystore"
+            keyPassword = "weather"
+            storeFile = file("D:\\Weather_KeyStore\\release.keystore.jks")
+            storePassword = "weather"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.weatherinfo"
         minSdk = 29
@@ -21,12 +37,49 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = false
+            applicationIdSuffix = ".weather.release"
+            val apiVersion = "2.5"
+            buildConfigField("String", "APIKEY", "\"9b8cb8c7f11c077f8c4e217974d9ee40\"")
+            buildConfigField(
+                "String",
+                "BASEURL",
+                "\"https://api.openweathermap.org/data/${apiVersion}/\""
+            )
+            buildConfigField("String", "APPLICATION_ID", "\"com.example.weatherinfo\"")
+            buildConfigField("String", "API_VERSION", "\"${apiVersion}\"")
+            buildConfigField("boolean", "LOG", "true")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro", "retrofit2.pro"
             )
+            signingConfig = signingConfigs.getByName(KeyStore.release)
         }
+
+        debug {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            isDebuggable = true
+            applicationIdSuffix = ".weather.debug"
+            val apiVersion = "2.5"
+            buildConfigField("String", "APIKEY", "\"9b8cb8c7f11c077f8c4e217974d9ee40\"")
+            buildConfigField(
+                "String",
+                "BASEURL",
+                "\"https://api.openweathermap.org/data/${apiVersion}/\""
+            )
+            buildConfigField("String", "APPLICATION_ID", "\"com.example.weatherinfo\"")
+            buildConfigField("String", "API_VERSION", "\"${apiVersion}\"")
+            buildConfigField("boolean", "LOG", "true")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro", "retrofit2.pro"
+            )
+            signingConfig = signingConfigs.getByName(KeyStore.dev)
+        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -38,6 +91,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -65,4 +119,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+
+object KeyStore {
+    const val release = "release"
+    const val dev = "dev"
 }

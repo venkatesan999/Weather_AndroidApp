@@ -3,7 +3,7 @@ package com.example.weatherinfo.weather.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import buildConfig.BuildConfig
+import com.example.weatherinfo.BuildConfig
 import com.example.weatherinfo.weather.app.api.core.ForecastResponse
 import com.example.weatherinfo.weather.app.api.core.WeatherResponse
 import com.example.weatherinfo.weather.app.api.service.WeatherRepository
@@ -33,9 +33,9 @@ class WeatherViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val weatherData =
-                    async { repository.getCurrentWeather(city, BuildConfig.API_KEY) }.await()
+                    async { repository.getCurrentWeather(city, BuildConfig.APIKEY) }.await()
                 val forecastData =
-                    async { repository.getWeatherForecast(city, BuildConfig.API_KEY) }.await()
+                    async { repository.getWeatherForecast(city, BuildConfig.APIKEY) }.await()
 
                 if (weatherData.isSuccessful && forecastData.isSuccessful) {
                     getWeatherData.value = weatherData.body()
