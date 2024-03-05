@@ -1,0 +1,10 @@
+- Kotlin programming language
+- MVVM architecture
+- Dagger HILT for dependency injection
+- Coroutine for asynchronous calls
+- Retrofit for API calls
+- XML based layouts
+- Animations & style
+- Proguard rules - "proguard-rules.pro", "retrofit2.pro"
+- build.gradle
+- BuildConfig
