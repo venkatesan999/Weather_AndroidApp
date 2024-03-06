@@ -7,19 +7,21 @@ import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherinfo.R
 import com.example.weatherinfo.databinding.ActivityMainBinding
+import com.example.weatherinfo.weather.app.ui.MessageHandler.showToastMessage
 import com.example.weatherinfo.weather.app.ui.adapter.ForecastListAdapter
 import com.example.weatherinfo.weather.app.ui.event.MyWeatherEvent
+import com.example.weatherinfo.weather.app.utils.DISCONNECTED
 import com.example.weatherinfo.weather.app.utils.NO_INTERNET
 import com.example.weatherinfo.weather.app.utils.RETRY
 import com.example.weatherinfo.weather.app.utils.SOCKET_TIMEOUT
 import com.example.weatherinfo.weather.app.utils.SUCCESS
+import com.example.weatherinfo.weather.app.utils.TIMEOUT
 import com.example.weatherinfo.weather.app.utils.isInternetConnected
 import com.example.weatherinfo.weather.app.utils.setTextForTextView
 import com.example.weatherinfo.weather.app.viewModels.WeatherViewModel
@@ -38,11 +40,8 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
         bind = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bind.root)
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
-        if (isInternetConnected(this)) {
-            getWeather()
-        } else {
-            this@MainActivity.showMessage(NO_INTERNET)
-        }
+        if (isInternetConnected(this)) getWeather()
+        else this.showMessage(NO_INTERNET)
     }
 
     private fun getWeather() {
@@ -92,9 +91,9 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
     override fun showMessage(message: String?) {
         stopAnimation()
         bind.weatherAndForecastLayout.visibility = View.VISIBLE
-        if (message.equals(SOCKET_TIMEOUT)) {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-        } else if (!message.equals(SUCCESS)) {
+        if (message.equals(SOCKET_TIMEOUT) || message.equals(TIMEOUT) || message.equals(DISCONNECTED))
+            message?.let { this.showToastMessage(it) }
+        else if (!message.equals(SUCCESS)) {
             val snackBar = Snackbar.make(
                 findViewById(android.R.id.content),
                 message ?: "",

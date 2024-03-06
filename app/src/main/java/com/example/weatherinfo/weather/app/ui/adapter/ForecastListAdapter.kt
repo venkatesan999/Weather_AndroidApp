@@ -33,9 +33,10 @@ class ForecastListAdapter : ListAdapter<ForecastLists, ForecastListAdapter.ViewH
         RecyclerView.ViewHolder(binding.root) {
         fun bind(forecastWeather: ForecastLists) {
             with(binding) {
-                dayText.text =
-                    forecastWeather.dt_txt.convertToDayFormat(yyyy_MM_dd_T_HH_mm_ss, EEEE)
-                tempText.setTextForTextView("${forecastWeather.main?.temp?.minus(273.15)?.toInt()} C")
+                forecastWeather.apply {
+                    dayText.text = dt_txt.convertToDayFormat(yyyy_MM_dd_T_HH_mm_ss, EEEE)
+                    tempText.setTextForTextView("${main?.temp?.minus(273.15)?.toInt()} C")
+                }
             }
         }
     }
