@@ -2,9 +2,6 @@ package com.example.weatherinfo.weather.app.ui.activity
 
 import android.graphics.Color
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
@@ -13,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherinfo.R
 import com.example.weatherinfo.databinding.ActivityMainBinding
+import com.example.weatherinfo.weather.app.ui.MessageHandler.showCustomSnackBar
 import com.example.weatherinfo.weather.app.ui.MessageHandler.showToastMessage
 import com.example.weatherinfo.weather.app.ui.adapter.ForecastListAdapter
 import com.example.weatherinfo.weather.app.ui.event.MyWeatherEvent
@@ -25,7 +23,6 @@ import com.example.weatherinfo.weather.app.utils.TIMEOUT
 import com.example.weatherinfo.weather.app.utils.isInternetConnected
 import com.example.weatherinfo.weather.app.utils.setTextForTextView
 import com.example.weatherinfo.weather.app.viewModels.WeatherViewModel
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -93,27 +90,8 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
         bind.weatherAndForecastLayout.visibility = View.VISIBLE
         if (message.equals(SOCKET_TIMEOUT) || message.equals(TIMEOUT) || message.equals(DISCONNECTED))
             message?.let { this.showToastMessage(it) }
-        else if (!message.equals(SUCCESS)) {
-            val snackBar = Snackbar.make(
-                findViewById(android.R.id.content),
-                message ?: "",
-                Snackbar.LENGTH_INDEFINITE
-            )
-            val spannableActionText = SpannableString(RETRY)
-            spannableActionText.setSpan(
-                ForegroundColorSpan(Color.RED),
-                0,
-                spannableActionText.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            snackBar.setAction(spannableActionText) {
-                if (isInternetConnected(this)) getWeather()
-                else this.showMessage(message)
-                snackBar.dismiss()
-            }
-            snackBar.show()
-        }
+        else if (!message.equals(SUCCESS))
+            message?.let { this.showCustomSnackBar(it, RETRY, Color.RED) { getWeather() } }
     }
 
     override fun onDestroy() {
