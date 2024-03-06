@@ -1,8 +1,8 @@
 package com.example.weatherinfo.weather.app.di
 
 import com.example.weatherinfo.BuildConfig
-import com.example.weatherinfo.weather.app.api.service.WeatherRepository
-import com.example.weatherinfo.weather.app.api.service.WeatherServicesInterface
+import com.example.weatherinfo.weather.app.data.api.service.WeatherRepository
+import com.example.weatherinfo.weather.app.data.api.service.WeatherServicesInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

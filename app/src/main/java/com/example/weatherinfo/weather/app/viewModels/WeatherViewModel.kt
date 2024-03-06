@@ -4,10 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherinfo.BuildConfig
-import com.example.weatherinfo.weather.app.api.core.ForecastResponse
-import com.example.weatherinfo.weather.app.api.core.WeatherResponse
-import com.example.weatherinfo.weather.app.api.service.WeatherRepository
-import com.example.weatherinfo.weather.app.ui.events.MyWeatherEvent
+import com.example.weatherinfo.weather.app.data.api.core.ForecastResponse
+import com.example.weatherinfo.weather.app.data.api.core.WeatherResponse
+import com.example.weatherinfo.weather.app.data.api.service.WeatherRepository
+import com.example.weatherinfo.weather.app.ui.event.MyWeatherEvent
 import com.example.weatherinfo.weather.app.utils.EEEE
 import com.example.weatherinfo.weather.app.utils.SOCKET_TIMEOUT
 import com.example.weatherinfo.weather.app.utils.SOMETHING_WENT_WRONG

@@ -1,7 +1,7 @@
-package com.example.weatherinfo.weather.app.api.service
+package com.example.weatherinfo.weather.app.data.api.service
 
-import com.example.weatherinfo.weather.app.api.core.ForecastResponse
-import com.example.weatherinfo.weather.app.api.core.WeatherResponse
+import com.example.weatherinfo.weather.app.data.api.core.ForecastResponse
+import com.example.weatherinfo.weather.app.data.api.core.WeatherResponse
 import retrofit2.Response
 import javax.inject.Inject
 

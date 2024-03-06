@@ -21,4 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 # Keep API interfaces and implementations
--keep class com.example.weatherinfo.weather.app.api.** { *; }
+-keep class com.example.weatherinfo.weather.app.data.api.** { *; }

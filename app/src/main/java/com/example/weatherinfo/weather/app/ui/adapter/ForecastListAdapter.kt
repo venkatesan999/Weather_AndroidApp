@@ -1,11 +1,11 @@
-package com.example.weatherinfo.weather.app.ui.adapters
+package com.example.weatherinfo.weather.app.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherinfo.databinding.ForecastListAdapterBinding
-import com.example.weatherinfo.weather.app.api.core.ForecastLists
+import com.example.weatherinfo.weather.app.data.api.core.ForecastLists
 import com.example.weatherinfo.weather.app.utils.EEEE
 import com.example.weatherinfo.weather.app.utils.convertToDayFormat
 import com.example.weatherinfo.weather.app.utils.diffUtilCallback

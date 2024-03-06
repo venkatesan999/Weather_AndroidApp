@@ -1,4 +1,4 @@
-package com.example.weatherinfo
+package com.example.weatherinfo.weather.app.ui.activity
 
 import android.graphics.Color
 import android.os.Bundle
@@ -12,9 +12,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.weatherinfo.R
 import com.example.weatherinfo.databinding.ActivityMainBinding
-import com.example.weatherinfo.weather.app.ui.adapters.ForecastListAdapter
-import com.example.weatherinfo.weather.app.ui.events.MyWeatherEvent
+import com.example.weatherinfo.weather.app.ui.adapter.ForecastListAdapter
+import com.example.weatherinfo.weather.app.ui.event.MyWeatherEvent
 import com.example.weatherinfo.weather.app.utils.NO_INTERNET
 import com.example.weatherinfo.weather.app.utils.RETRY
 import com.example.weatherinfo.weather.app.utils.SOCKET_TIMEOUT
