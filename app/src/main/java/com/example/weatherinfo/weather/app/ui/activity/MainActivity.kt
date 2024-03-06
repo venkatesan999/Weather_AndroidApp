@@ -83,8 +83,10 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
     }
 
     private fun stopAnimation() {
-        bind.syncIcon.clearAnimation()
-        bind.syncIcon.visibility = View.GONE
+        with(bind) {
+            syncIcon.clearAnimation()
+            syncIcon.visibility = View.GONE
+        }
     }
 
     override fun showMessage(message: String?) {
@@ -112,6 +114,14 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
                 snackBar.dismiss()
             }
             snackBar.show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        with(bind) {
+            syncIcon.clearAnimation()
+            recyclerView.clearAnimation()
         }
     }
 }
