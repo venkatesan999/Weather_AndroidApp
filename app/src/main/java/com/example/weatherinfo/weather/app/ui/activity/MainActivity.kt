@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
         super.onCreate(savedInstanceState)
         bind = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bind.root)
-        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         if (isInternetConnected(this)) getWeather()
         else this.showMessage(NO_INTERNET)
     }

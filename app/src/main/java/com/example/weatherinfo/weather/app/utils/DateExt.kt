@@ -20,5 +20,3 @@ fun getCurrentDayOfWeek(): String {
     val dayFormat = SimpleDateFormat("EEEE", Locale.ENGLISH)
     return dayFormat.format(calendar.time)
 }
-
-fun String.isValidString() = !isNullOrEmpty()
