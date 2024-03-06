@@ -10,14 +10,14 @@ android {
     compileSdk = 34
 
     signingConfigs {
-        create(KeyStore.dev) {
+        create(KeyStore.RELEASE) {
             keyPassword = "weather"
             storeFile = file("D:\\Weather_KeyStore\\debug.keystore.jks")
             storePassword = "weather"
             keyAlias = "weather_keystore"
         }
 
-        create(KeyStore.release) {
+        create(KeyStore.DEV) {
             keyAlias = "weather_keystore"
             keyPassword = "weather"
             storeFile = file("D:\\Weather_KeyStore\\release.keystore.jks")
@@ -55,7 +55,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro", "retrofit2.pro"
             )
-            signingConfig = signingConfigs.getByName(KeyStore.release)
+            signingConfig = signingConfigs.getByName(KeyStore.RELEASE)
         }
 
         debug {
@@ -77,7 +77,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro", "retrofit2.pro"
             )
-            signingConfig = signingConfigs.getByName(KeyStore.dev)
+            signingConfig = signingConfigs.getByName(KeyStore.DEV)
         }
 
     }
@@ -122,6 +122,6 @@ dependencies {
 }
 
 object KeyStore {
-    const val release = "release"
-    const val dev = "dev"
+    const val RELEASE = "release"
+    const val DEV = "dev"
 }

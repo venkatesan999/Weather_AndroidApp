@@ -11,15 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherinfo.R
 import com.example.weatherinfo.databinding.ActivityMainBinding
 import com.example.weatherinfo.weather.app.ui.MessageHandler.showCustomSnackBar
-import com.example.weatherinfo.weather.app.ui.MessageHandler.showToastMessage
 import com.example.weatherinfo.weather.app.ui.adapter.ForecastListAdapter
 import com.example.weatherinfo.weather.app.ui.event.MyWeatherEvent
-import com.example.weatherinfo.weather.app.utils.DISCONNECTED
 import com.example.weatherinfo.weather.app.utils.NO_INTERNET
 import com.example.weatherinfo.weather.app.utils.RETRY
-import com.example.weatherinfo.weather.app.utils.SOCKET_TIMEOUT
 import com.example.weatherinfo.weather.app.utils.SUCCESS
-import com.example.weatherinfo.weather.app.utils.TIMEOUT
 import com.example.weatherinfo.weather.app.utils.isInternetConnected
 import com.example.weatherinfo.weather.app.utils.setTextForTextView
 import com.example.weatherinfo.weather.app.viewModels.WeatherViewModel
@@ -88,9 +84,7 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
     override fun showMessage(message: String?) {
         stopAnimation()
         bind.weatherAndForecastLayout.visibility = View.VISIBLE
-        if (message.equals(SOCKET_TIMEOUT) || message.equals(TIMEOUT) || message.equals(DISCONNECTED))
-            message?.let { this.showToastMessage(it) }
-        else if (!message.equals(SUCCESS))
+        if (!message.equals(SUCCESS))
             message?.let { this.showCustomSnackBar(it, RETRY, Color.RED) { getWeather() } }
     }
 

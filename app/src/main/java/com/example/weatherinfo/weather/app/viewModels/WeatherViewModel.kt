@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weatherinfo.BuildConfig
-import com.example.weatherinfo.weather.app.data.api.core.ForecastResponse
-import com.example.weatherinfo.weather.app.data.api.core.WeatherResponse
+import com.example.weatherinfo.weather.app.data.api.core.WeatherForecastResponse
+import com.example.weatherinfo.weather.app.data.api.core.CurrentWeatherResponse
 import com.example.weatherinfo.weather.app.data.api.service.ApiUtils
 import com.example.weatherinfo.weather.app.data.api.service.WeatherRepository
 import com.example.weatherinfo.weather.app.ui.event.MyWeatherEvent
@@ -23,8 +23,8 @@ class WeatherViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
 
-    val getWeatherData = MutableLiveData<WeatherResponse?>()
-    val getForecastData = MutableLiveData<ForecastResponse?>()
+    val getWeatherData = MutableLiveData<CurrentWeatherResponse?>()
+    val getForecastData = MutableLiveData<WeatherForecastResponse?>()
 
     fun getCurrentWeatherAndForecast(city: String, myWeather: MyWeatherEvent) {
         viewModelScope.launch {
@@ -41,7 +41,7 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    private fun getUniqueDay(response: ForecastResponse) {
+    private fun getUniqueDay(response: WeatherForecastResponse) {
         val currentDay = getCurrentDayOfWeek()
         val uniqueDays =
             response.list?.map { it.dt_txt.convertToDayFormat(yyyy_MM_dd_T_HH_mm_ss, EEEE) }

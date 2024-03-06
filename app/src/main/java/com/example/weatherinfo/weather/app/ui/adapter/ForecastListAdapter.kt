@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherinfo.databinding.ForecastListAdapterBinding
-import com.example.weatherinfo.weather.app.data.api.core.ForecastLists
+import com.example.weatherinfo.weather.app.data.api.core.WeatherForecastLists
 import com.example.weatherinfo.weather.app.utils.EEEE
 import com.example.weatherinfo.weather.app.utils.convertToDayFormat
 import com.example.weatherinfo.weather.app.utils.diffUtilCallback
 import com.example.weatherinfo.weather.app.utils.setTextForTextView
 import com.example.weatherinfo.weather.app.utils.yyyy_MM_dd_T_HH_mm_ss
 
-class ForecastListAdapter : ListAdapter<ForecastLists, ForecastListAdapter.ViewHolder>(
-    diffUtilCallback<ForecastLists>(
+class ForecastListAdapter : ListAdapter<WeatherForecastLists, ForecastListAdapter.ViewHolder>(
+    diffUtilCallback<WeatherForecastLists>(
         areItemsTheSame = { oldItem, newItem -> oldItem.dt_txt == newItem.dt_txt },
         areContentsTheSame = { oldItem, newItem -> oldItem == newItem })
 ) {
@@ -31,7 +31,7 @@ class ForecastListAdapter : ListAdapter<ForecastLists, ForecastListAdapter.ViewH
 
     inner class ViewHolder(private val binding: ForecastListAdapterBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(forecastWeather: ForecastLists) {
+        fun bind(forecastWeather: WeatherForecastLists) {
             with(binding) {
                 forecastWeather.apply {
                     dayText.text = dt_txt.convertToDayFormat(yyyy_MM_dd_T_HH_mm_ss, EEEE)

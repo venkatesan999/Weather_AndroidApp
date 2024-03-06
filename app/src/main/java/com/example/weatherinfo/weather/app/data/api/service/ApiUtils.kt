@@ -19,9 +19,11 @@ object ApiUtils {
         onError: (String) -> Unit
     ) {
         try {
-            val response = apiCall.invoke()
-            if (response.isSuccessful) response.body()?.let { onSuccess(it) }
-            else onError(SOMETHING_WENT_WRONG)
+            coroutineScope {
+                val response = async { apiCall.invoke() }.await()
+                if (response.isSuccessful) response.body()?.let { onSuccess(it) }
+                else onError(SOMETHING_WENT_WRONG)
+            }
         } catch (e: Exception) {
             val errorMessage = when (e) {
                 is SocketException -> DISCONNECTED
