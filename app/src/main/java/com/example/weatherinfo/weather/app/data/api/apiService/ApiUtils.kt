@@ -1,4 +1,4 @@
-package com.example.weatherinfo.weather.app.data.api.service
+package com.example.weatherinfo.weather.app.data.api.apiService
 
 import com.example.weatherinfo.weather.app.utils.DISCONNECTED
 import com.example.weatherinfo.weather.app.utils.SOCKET_TIMEOUT

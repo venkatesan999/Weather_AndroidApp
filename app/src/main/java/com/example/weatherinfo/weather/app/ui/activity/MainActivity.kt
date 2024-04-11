@@ -6,13 +6,12 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherinfo.R
 import com.example.weatherinfo.databinding.ActivityMainBinding
-import com.example.weatherinfo.weather.app.ui.MessageHandler.showCustomSnackBar
 import com.example.weatherinfo.weather.app.ui.adapter.ForecastListAdapter
 import com.example.weatherinfo.weather.app.ui.event.MyWeatherEvent
+import com.example.weatherinfo.weather.app.ui.util.MessageHandler.showCustomSnackBar
 import com.example.weatherinfo.weather.app.utils.NO_INTERNET
 import com.example.weatherinfo.weather.app.utils.RETRY
 import com.example.weatherinfo.weather.app.utils.SUCCESS
@@ -32,15 +31,24 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
         super.onCreate(savedInstanceState)
         bind = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bind.root)
+        setUpViews()
         if (isInternetConnected(this)) getWeather()
         else this.showMessage(NO_INTERNET)
     }
 
+    private fun setUpViews() {
+        with(bind) {
+            recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+            forecastAdapter = ForecastListAdapter()
+            recyclerView.adapter = forecastAdapter
+        }
+    }
+
     private fun getWeather() {
         with(bind) {
-            sycAnimSetUp()
-            adapterSetUp()
-            weatherViewModel.getCurrentWeatherAndForecast("Bengaluru", this@MainActivity)
+            setUpAnimation()
+            setUpAdapter()
+            weatherViewModel.getCurrentWeatherAndForecast("Chennai", this@MainActivity)
             weatherViewModel.getWeatherData.observe(this@MainActivity) { weatherData ->
                 currentTempText.setTextForTextView(
                     "${weatherData?.main?.temp?.minus(273.15)?.toInt()}°"
@@ -53,7 +61,7 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
         }
     }
 
-    private fun sycAnimSetUp() {
+    private fun setUpAnimation() {
         with(bind) {
             weatherAndForecastLayout.visibility = View.GONE
             syncIcon.visibility = View.VISIBLE
@@ -62,11 +70,10 @@ class MainActivity : AppCompatActivity(), MyWeatherEvent {
         }
     }
 
-    private fun adapterSetUp() {
+    private fun setUpAdapter() {
         with(bind) {
             forecastAdapter = ForecastListAdapter()
             recyclerView.adapter = forecastAdapter
-            recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
             val animation =
                 AnimationUtils.loadAnimation(this@MainActivity, R.anim.slide_up_animation)
             recyclerView.startAnimation(animation)

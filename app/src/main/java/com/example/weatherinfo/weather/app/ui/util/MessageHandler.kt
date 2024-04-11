@@ -1,18 +1,14 @@
-package com.example.weatherinfo.weather.app.ui
+package com.example.weatherinfo.weather.app.ui.util
 
 import android.app.Activity
 import android.content.Context
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.widget.Toast
 import com.example.weatherinfo.weather.app.utils.isInternetConnected
 import com.google.android.material.snackbar.Snackbar
 
 object MessageHandler {
-    fun Context.showToastMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
 
     fun Context.showCustomSnackBar(
         message: String?,
